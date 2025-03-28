@@ -157,3 +157,47 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+// 导航链接点击事件
+document.querySelectorAll('.navbar-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    // 移除所有active类
+    document.querySelectorAll('.navbar-link').forEach(l => l.classList.remove('active'));
+    
+    // 添加active类到当前点击的链接
+    this.classList.add('active');
+    
+    // 获取目标区域
+    const targetId = this.getAttribute('href');
+    const targetSection = document.querySelector(targetId);
+    
+    // 平滑滚动到目标区域
+    targetSection.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// 监听滚动事件来更新导航状态
+window.addEventListener('scroll', function() {
+  const sections = document.querySelectorAll('article');
+  const navLinks = document.querySelectorAll('.navbar-link');
+  
+  let current = '';
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+    
+    if (pageYOffset >= sectionTop - 60) {
+      current = section.getAttribute('id');
+    }
+  });
+  
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href').slice(1) === current) {
+      link.classList.add('active');
+    }
+  });
+});
