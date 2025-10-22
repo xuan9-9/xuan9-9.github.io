@@ -158,6 +158,8 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
+
+
 // 导航链接点击事件
 document.querySelectorAll('.navbar-link').forEach(link => {
   link.addEventListener('click', function(e) {
